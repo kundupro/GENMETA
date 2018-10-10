@@ -14,9 +14,9 @@ setwd("~/Documents/MetaG")
 STEP:2  
 
 ##---- sourcing the files in the MetaG------##  
-source("GMeta.R")  
+source("MetaG.R")  
 source("myoptim.R")  
-source("GMeta.summary.R")  
+source("MetaG.summary.R")  
 source("sign.star.R")  
 
 #--------- The following code is for the simulation results in Table 2----------------#  
@@ -261,7 +261,7 @@ K = 3
   names(theta.m2)=c("(Intercept)","Height", "Weight")  
   names(theta.m3)=c("(Intercept)","Age", "Weight")  
   
-  #---- now put in the GMeta example ----#  
+  #---- now put in the MetaG example ----#  
 
  #--### The results shown in Table 2 is obtained by considering #####  
  #--#### study-specific variance-covariance matrices. This is shown ##  
@@ -278,19 +278,19 @@ K = 3
 #--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##  
 #--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##  
 
- #---- Creating the study list for GMeta input ---#  
+ #---- Creating the study list for MetaG input ---#  
   
  studies = list(study1,study2,study3)  
   model = "logistic"  
   
-  #------ Creating the reference data for GMeta input -----#  
+  #------ Creating the reference data for MetaG input -----#  
 
   reference = cbind(rep(1,n), X.rf)  
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")  
 
-#-------Calling the GMeta function-------#  
+#-------Calling the MetaG function-------#  
 
-  result.same = GMeta(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
+  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
   
   
 #------Checking the conditions where the optim did not converge--#   
@@ -620,7 +620,7 @@ K = 3
   names(theta.m2)=c("(Intercept)","Height", "Weight")  
   names(theta.m3)=c("(Intercept)","Age", "Weight")  
   
-  #---- now put in the GMeta example ----#  
+  #---- now put in the MetaG example ----#  
 
  #--### The results shown in Table 2 is obtained by considering #####  
  #--#### study-specific variance-covariance matrices. This is shown ##  
@@ -637,19 +637,19 @@ K = 3
 #--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##  
 #--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##  
 
- #---- Creating the study list for GMeta input ---#  
+ #---- Creating the study list for MetaG input ---#  
   
  studies = list(study1,study2,study3)  
   model = "logistic"  
   
-  #------ Creating the reference data for GMeta input -----#  
+  #------ Creating the reference data for MetaG input -----#  
 
   reference = cbind(rep(1,n), X.rf)  
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")  
 
-#-------Calling the GMeta function-------#  
+#-------Calling the MetaG function-------#  
 
-  result.same = GMeta(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
+  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
   
   
 #------Checking the conditions where the optim did not converge--#   
