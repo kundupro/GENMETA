@@ -13,7 +13,7 @@ setwd("~/Documents/MetaG")
 
 STEP:2
 
-#---- sourcing the files in the MetaG------#
+##---- sourcing the files in the MetaG------##
 source("GMeta.R")
 source("myoptim.R")
 source("GMeta.summary.R")
@@ -29,18 +29,18 @@ library(stats)
 ### Basic setting######
 #######################
 
-#number of covariates in the full model
+#---number of covariates in the full model---#
 d.X = 3
 
-#mean vector of the covariates
+#---mean vector of the covariates---#
 mu = matrix(rep(0,d.X), nrow=d.X) 
 
-# correlation coefficient of the covariates.
+#--- correlation coefficient of the covariates---#
 r1 = 0.3 
 r2 = 0.6
 r3 = 0.1
 
-# covariance matrix of the covariates
+#--- covariance matrix of the covariates---#
 Sigma = matrix( 
   c(1, r1, r2,  
     r1, 1, r3, 
@@ -48,7 +48,7 @@ Sigma = matrix(
   nrow=d.X, ncol=d.X).
 
 
-# True parameter
+#-- True parameter---#
 beta.star = matrix(c(-1.2, log(1.3), log(1.3), log(1.3)),nrow = d.X+1) 
 
 
@@ -75,9 +75,9 @@ for(sim in 1:no.of.simulations)
   set.seed(sim)
 
 
-  #################################################
-  ###### Generating the reference and studies #####
-    #################################################
+  #--################################################
+  #--##### Generating the reference and studies #####
+  #--################################################
 
   #---Generate the reference data set---#
 
@@ -90,9 +90,7 @@ for(sim in 1:no.of.simulations)
   X.m1.1 = cbind(rep(1, n1), X.m1) # Add a column of 1's to X.m1.
   p.m1 = 1/(1+exp(-X.m1.1%*%beta.star)) # the vector of probabilities
   Y.m1 = rbinom(n1, size=1, p.m1) # the Bernoulli responses
-  # print(p.m1[1])
-  # print(mean(Y.m1))
-  # print(mean(p.m1))
+  
   
   #----Generate data set 2. m2 means model 2.---#
 
@@ -108,19 +106,19 @@ for(sim in 1:no.of.simulations)
   p.m3 = 1/(1+exp(-X.m3.1%*%beta.star))
   Y.m3 = rbinom(n3, size=1, p.m3)
   
-  #######################################################
-  ### Create data sets in the format of data frame.######
-  #######################################################
+  #--#######################################################
+  #--### Create data sets in the format of data frame.######
+  #--#######################################################
   data.m1 = data.frame(Y=Y.m1, X.m1)
   data.m2 = data.frame(Y=Y.m2, X.m2)
   data.m3 = data.frame(Y=Y.m3, X.m3)
-  # str(data.m1)
   
   
   
-  ####################################################################
-  ### Fit logistic regression with reduced models to the data sets ###
-  ####################################################################
+  
+  #--####################################################################
+  #--### Fit logistic regression with reduced models to the data sets ###
+  #--####################################################################
 
   logit.m1 <- glm(Y ~ X1 + X2, data = data.m1, family = "binomial")
   if(logit.m1$converged == FALSE)
@@ -146,31 +144,31 @@ for(sim in 1:no.of.simulations)
  }
   
   
-  ####################################################################
-  ### Obtain the estimators of the parameters in the reduced models.## 
-  ####################################################################
+  #--####################################################################
+  #--### Obtain the estimators of the parameters in the reduced models.## 
+  #--####################################################################
 
   theta.m1 = logit.m1$coefficients
   theta.m2 = logit.m2$coefficients
   theta.m3 = logit.m3$coefficients
   
   
-  ####################################################################
-  #### The following is used to calculate robust variance estimates###
-  #### for each of three parameter vectors in the reduced models. ####
-  #### This is needed if the user inputs the variance-covariance #####
-  #### matrices from each of studies. Later, we show that it can be ## 
-  #### computed from reference data set if these are not provided ####  
-  ####################################################################
+  #--####################################################################
+  #--#### The following is used to calculate robust variance estimates###
+  #--#### for each of three parameter vectors in the reduced models. ####
+  #--#### This is needed if the user inputs the variance-covariance #####
+  #--### matrices from each of studies. Later, we show that it can be ## 
+  #--### computed from reference data set if these are not provided ####  
+  #--###################################################################
   
-  ####################################################################
-  ### Find the covariance matrix estimators for the reduced models####
-  ####################################################################
+  #--####################################################################
+  #--### Find the covariance matrix estimators for the reduced models####
+  #--####################################################################
   
   
-  #############################
-  # Basic notations for inputs#
-  #############################
+  #--#############################
+  #-- Basic notations for inputs#
+  #--#############################
   
 #-- Number of data sets---# 
 
@@ -265,20 +263,20 @@ K = 3
   
   #---- now put in the GMeta example ----#
 
- #### The results shown in Table 2 is obtained by considering #####
- #### study-specific variance-covariance matrices. This is shown ##
- #### below. ######################################################
- ################################################################## 
+ #--### The results shown in Table 2 is obtained by considering #####
+ #--#### study-specific variance-covariance matrices. This is shown ##
+ #--#### below. ######################################################
+ #--################################################################## 
   study1 = list(Coeff=theta.m1,Covariance=Sigma.m1,Sample_size=n1)
   study2 = list(Coeff=theta.m2,Covariance=Sigma.m2,Sample_size=n2)
   study3 = list(Coeff=theta.m3,Covariance=Sigma.m3,Sample_size=n3)
 
-##### If the study-specific variance-covariance matrices are not ###
-##### available, then it is set to NULL. The following lines #######
-##### demonstrate it…                                       #######
-##### study1 = list(Coeff=theta.m1,Covariance=NULL,Sample_size=n1)##
-##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##
-##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##
+#--##### If the study-specific variance-covariance matrices are not ###
+#--##### available, then it is set to NULL. The following lines #######
+#--##### demonstrate it…                                       #######
+#--##### study1 = list(Coeff=theta.m1,Covariance=NULL,Sample_size=n1)##
+#--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##
+#--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##
 
  #---- Creating the study list for GMeta input ---#
   
@@ -370,9 +368,9 @@ write.csv(result, file = "Simulation_1.csv", row.names = F)
 ############################################################################
 
 
-#######################
-### Basic setting######
-#######################
+#--#######################
+#--### Basic setting######
+#--#######################
 
 d.X = 3 # number of covariates.
 mu.1 = matrix(rep(0,d.X), nrow=d.X) # mean vector of the covariates.
@@ -437,9 +435,9 @@ for(sim in 1:no.of.simulations)
   set.seed(sim)
 
 
-  #################################################
-  ###### Generating the reference and studies #####
-    #################################################
+ #--#################################################
+ #--###### Generating the reference and studies #####
+ #--#################################################
 
   #---Generate the reference data set---#
 
@@ -452,9 +450,7 @@ for(sim in 1:no.of.simulations)
   X.m1.1 = cbind(rep(1, n1), X.m1) # Add a column of 1's to X.m1.
   p.m1 = 1/(1+exp(-X.m1.1%*%beta.star)) # the vector of probabilities
   Y.m1 = rbinom(n1, size=1, p.m1) # the Bernoulli responses
-  # print(p.m1[1])
-  # print(mean(Y.m1))
-  # print(mean(p.m1))
+ 
   
   #----Generate data set 2. m2 means model 2.---#
 
@@ -470,19 +466,19 @@ for(sim in 1:no.of.simulations)
   p.m3 = 1/(1+exp(-X.m3.1%*%beta.star))
   Y.m3 = rbinom(n3, size=1, p.m3)
   
-  #######################################################
-  ### Create data sets in the format of data frame.######
-  #######################################################
+  #--#######################################################
+  #--### Create data sets in the format of data frame.######
+  #--#######################################################
   data.m1 = data.frame(Y=Y.m1, X.m1)
   data.m2 = data.frame(Y=Y.m2, X.m2)
   data.m3 = data.frame(Y=Y.m3, X.m3)
-  # str(data.m1)
+ 
   
   
   
-  ####################################################################
-  ### Fit logistic regression with reduced models to the data sets ###
-  ####################################################################
+  #--####################################################################
+  #--### Fit logistic regression with reduced models to the data sets ###
+  #--####################################################################
 
   logit.m1 <- glm(Y ~ X1 + X2, data = data.m1, family = "binomial")
   if(logit.m1$converged == FALSE)
@@ -508,31 +504,31 @@ for(sim in 1:no.of.simulations)
  }
   
   
-  ####################################################################
-  ### Obtain the estimators of the parameters in the reduced models.## 
-  ####################################################################
+  #--####################################################################
+  #--### Obtain the estimators of the parameters in the reduced models.## 
+  #--####################################################################
 
   theta.m1 = logit.m1$coefficients
   theta.m2 = logit.m2$coefficients
   theta.m3 = logit.m3$coefficients
   
   
-  ####################################################################
-  #### The following is used to calculate robust variance estimates###
-  #### for each of three parameter vectors in the reduced models. ####
-  #### This is needed if the user inputs the variance-covariance #####
-  #### matrices from each of studies. Later, we show that it can be ## 
-  #### computed from reference data set if these are not provided ####  
-  ####################################################################
+  #--####################################################################
+  #--#### The following is used to calculate robust variance estimates###
+  #--#### for each of three parameter vectors in the reduced models. ####
+  #--#### This is needed if the user inputs the variance-covariance #####
+  #--#### matrices from each of studies. Later, we show that it can be ## 
+  #--#### computed from reference data set if these are not provided ####  
+  #--####################################################################
   
-  ####################################################################
-  ### Find the covariance matrix estimators for the reduced models####
-  ####################################################################
+  #--####################################################################
+  #--### Find the covariance matrix estimators for the reduced models####
+  #--####################################################################
   
   
-  #############################
-  # Basic notations for inputs#
-  #############################
+  #--#############################
+  #--# Basic notations for inputs#
+  #--#############################
   
 #-- Number of data sets---# 
 
@@ -627,20 +623,20 @@ K = 3
   
   #---- now put in the GMeta example ----#
 
- #### The results shown in Table 2 is obtained by considering #####
- #### study-specific variance-covariance matrices. This is shown ##
- #### below. ######################################################
- ################################################################## 
+ #--#### The results shown in Table 2 is obtained by considering #####
+ #--#### study-specific variance-covariance matrices. This is shown ##
+ #--#### below. ######################################################
+ #--################################################################## 
   study1 = list(Coeff=theta.m1,Covariance=Sigma.m1,Sample_size=n1)
   study2 = list(Coeff=theta.m2,Covariance=Sigma.m2,Sample_size=n2)
   study3 = list(Coeff=theta.m3,Covariance=Sigma.m3,Sample_size=n3)
 
-##### If the study-specific variance-covariance matrices are not ###
-##### available, then it is set to NULL. The following lines #######
-##### demonstrate it…                                       #######
-##### study1 = list(Coeff=theta.m1,Covariance=NULL,Sample_size=n1)##
-##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##
-##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##
+#--##### If the study-specific variance-covariance matrices are not ###
+#--##### available, then it is set to NULL. The following lines #######
+#--##### demonstrate it…                                       #######
+#--##### study1 = list(Coeff=theta.m1,Covariance=NULL,Sample_size=n1)##
+#--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##
+#--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##
 
  #---- Creating the study list for GMeta input ---#
   
