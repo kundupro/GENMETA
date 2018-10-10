@@ -45,7 +45,7 @@ Sigma = matrix(
   c(1, r1, r2,    
     r1, 1, r3,   
     r2, r3, 1),   
-  nrow=d.X, ncol=d.X).  
+  nrow=d.X, ncol=d.X)  
 
 
 #-- True parameter---#  
@@ -371,35 +371,47 @@ write.csv(result, file = "Simulation_1.csv", row.names = F)
 #--### Basic setting######   
 #--#######################  
 
-d.X = 3 # number of covariates.  
-mu.1 = matrix(rep(0,d.X), nrow=d.X) # mean vector of the covariates.  
-mu.2 = matrix(rep(1,d.X), nrow=d.X) # mean vector of the covariates.  
-mu.3 = matrix(rep(0.5,d.X), nrow=d.X) # mean vector of the covariates.  
+#-- number of covariates.  
+d.X = 3   
 
-r1.1 = 0.2 # correlation coefficient of the covariates.  
+#-- Different mean vectors of the covariates.  
+mu.1 = matrix(rep(0,d.X), nrow=d.X)  
+mu.2 = matrix(rep(1,d.X), nrow=d.X)   
+mu.3 = matrix(rep(0.5,d.X), nrow=d.X)   
+
+#-- correlation coefficient(low) of the covariates.  
+r1.1 = 0.2   
 r2.1 = 0.4  
 r3.1 = 0  
+
+#-- covariance matrix of the covariates.  
 Sigma.1 = matrix(   
   c(1, r1.1, r2.1,    
     r1.1, 1, r3.1,   
     r2.1, r3.1, 1),   
   nrow=d.X,   
-  ncol=d.X) # covariance matrix of the covariates.  
+  ncol=d.X)    
 
-r1.2 = 0.3 # correlation coefficient of the covariates.  
+
+#-- correlation coefficient(base/medium) of the covariates.  
+r1.2 = 0.3    
 r2.2 = 0.6  
 r3.2 = 0.1  
+
+#-- covariance matrix of the covariates.  
 Sigma.2 = matrix(   
   c(1, r1.2, r2.2,    
     r1.2, 1, r3.2,   
     r2.2, r3.2, 1),   
   nrow=d.X,   
-  ncol=d.X) # covariance matrix of the covariates.  
+  ncol=d.X)  
 
-
-r1.3 = 0.4 # correlation coefficient of the covariates.  
+#-- correlation coefficient(high) of the covariates.  
+r1.3 = 0.4   
 r2.3 = 0.8  
 r3.3 = 0.2  
+
+#-- covariance matrix of the covariates.  
 Sigma.3 = matrix(   
   c(1, r1.3, r2.3,    
     r1.3, 1, r3.3,   
