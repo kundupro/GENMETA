@@ -1,23 +1,23 @@
 # MetaG
-This file provides guidelines for implementing generalized meta-analysis(GMeta)__
+This file provides guidelines for implementing generalized meta-analysis(GMeta)  
 
 
-STEP:1__
-Download the zip file and extract the files into a folder.__
-Make that folder as the current working directory.__
+STEP:1  
+Download the zip file and extract the files into a folder.  
+Make that folder as the current working directory.  
 
-For example, if the path to the folder containing the files is “~/Documents/MetaG”__
-then to make the current directory as GMeta, type in the following in the R Console__
+For example, if the path to the folder containing the files is “~/Documents/MetaG”  
+then to make the current directory as GMeta, type in the following in the R Console  
 
-setwd("~/Documents/MetaG")__
+setwd("~/Documents/MetaG")  
 
-STEP:2__
+STEP:2  
 
-##---- sourcing the files in the MetaG------##__
-source("GMeta.R")__
-source("myoptim.R")__
-source("GMeta.summary.R")__
-source("sign.star.R")__
+##---- sourcing the files in the MetaG------##  
+source("GMeta.R")  
+source("myoptim.R")  
+source("GMeta.summary.R")  
+source("sign.star.R")  
 
 #--------- The following code is for the simulation results in Table 2----------------#
 
