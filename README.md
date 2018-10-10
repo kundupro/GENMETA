@@ -182,9 +182,9 @@ K = 3
   
 #--- X.m1.used denotes the design matrix in model 1----#  
   
-  X.m1.used = cbind(rep(1, n1), X.m1[, A1, drop=F])  
-  X.m2.used = cbind(rep(1, n2), X.m2[, A2, drop=F])  
-  X.m3.used = cbind(rep(1, n3), X.m3[, A3, drop=F])  
+  X.m1.used = cbind(rep(1, n1), X.m1\[, A1, drop=F\])  
+  X.m2.used = cbind(rep(1, n2), X.m2\[, A2, drop=F\])  
+  X.m3.used = cbind(rep(1, n3), X.m3\[, A3, drop=F\])  
   
   
   
@@ -196,8 +196,8 @@ K = 3
   
   for (i in 1:n1)  
   {  
-    a = as.vector(exp(-X.m1.used[i, , drop=F] %*% theta.m1))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m1.used[i, , drop=F]) %*% X.m1.used[i, , drop=F])  
+    a = as.vector(exp(-X.m1.used\[i, , drop=F\] %*% theta.m1))  
+    T.1 = T.1 + (a/(1+a)^2) * (t(X.m1.used\[i, , drop=F\]) %*% X.m1.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n1)  
