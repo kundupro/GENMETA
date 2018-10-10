@@ -22,7 +22,7 @@ source("sign.star.R")
 #--------- The following code is for the simulation results in Table 2----------------#  
 
 
-#-----------Setting-I (Ideal setting)--------------------------#  
+# Setting-I (Ideal setting)  
 library(MASS)  
 library(stats)  
 #--#######################  
@@ -360,7 +360,7 @@ write.csv(result, file = "Simulation_1.csv", row.names = F)
 
 
 
-#-----------Setting-II : Means are different across studies--------------------------#  
+# Setting-II : Means are different across studies
 #--############################################################################  
 #--######## For this and all other settings, the codes in the basic setting and for generating ####  
 #--######## the data sets change. Rest remain the same. ##############################  
