@@ -19,129 +19,129 @@ source("myoptim.R")
 source("GMeta.summary.R")  
 source("sign.star.R")  
 
-#--------- The following code is for the simulation results in Table 2----------------#
+#--------- The following code is for the simulation results in Table 2----------------#  
 
 
-#-----------Setting-I (Ideal setting)--------------------------#
-library(MASS)
-library(stats)
-#######################
-### Basic setting######
-#######################
+#-----------Setting-I (Ideal setting)--------------------------#  
+library(MASS)  
+library(stats)  
+#######################  
+### Basic setting######  
+#######################  
 
-#---number of covariates in the full model---#
-d.X = 3
+#---number of covariates in the full model---#  
+d.X = 3  
 
-#---mean vector of the covariates---#
-mu = matrix(rep(0,d.X), nrow=d.X) 
+#---mean vector of the covariates---#  
+mu = matrix(rep(0,d.X), nrow=d.X)   
 
-#--- correlation coefficient of the covariates---#
-r1 = 0.3 
-r2 = 0.6
-r3 = 0.1
+#--- correlation coefficient of the covariates---#  
+r1 = 0.3   
+r2 = 0.6  
+r3 = 0.1  
 
-#--- covariance matrix of the covariates---#
-Sigma = matrix( 
-  c(1, r1, r2,  
-    r1, 1, r3, 
-    r2, r3, 1), 
-  nrow=d.X, ncol=d.X).
-
-
-#-- True parameter---#
-beta.star = matrix(c(-1.2, log(1.3), log(1.3), log(1.3)),nrow = d.X+1) 
+#--- covariance matrix of the covariates---#  
+Sigma = matrix(   
+  c(1, r1, r2,    
+    r1, 1, r3,   
+    r2, r3, 1),   
+  nrow=d.X, ncol=d.X).  
 
 
-#-----Sample sizes of the three studies-----#
-n1 = 300 # sample size of the 1st data set.
-n2 = 500 # 2nd
-n3 = 1000 # 3rd
-
-#---- Sample size of the reference dataset---#
-n = 50
+#-- True parameter---#  
+beta.star = matrix(c(-1.2, log(1.3), log(1.3), log(1.3)),nrow = d.X+1)   
 
 
-no.of.simulations = 1000
+#-----Sample sizes of the three studies-----#  
+n1 = 300 # sample size of the 1st data set.  
+n2 = 500 # 2nd  
+n3 = 1000 # 3rd  
 
-#----- Defining a matrix to store the results for each simulation----#
-sim.matrix = matrix(NA, 1000, 8)
+#---- Sample size of the reference dataset---#  
+n = 50  
 
-start.time = Sys.time()
 
-#------ Repeat for each simulation ----#
+no.of.simulations = 1000  
 
-for(sim in 1:no.of.simulations)
+#----- Defining a matrix to store the results for each simulation----#  
+sim.matrix = matrix(NA, 1000, 8)  
+
+start.time = Sys.time()  
+
+#------ Repeat for each simulation ----#  
+
+for(sim in 1:no.of.simulations)  
 {
-  set.seed(sim)
+  set.seed(sim)  
 
 
-  #--################################################
-  #--##### Generating the reference and studies #####
-  #--################################################
+  #--################################################  
+  #--##### Generating the reference and studies #####    
+  #--################################################  
 
-  #---Generate the reference data set---#
+  #---Generate the reference data set---#  
 
-  X.rf = mvrnorm(n = n, mu, Sigma)
+  X.rf = mvrnorm(n = n, mu, Sigma)  
   
   
-  #----Generate data set 1. m1 means model 1.---#
+  #----Generate data set 1. m1 means model 1.---#  
 
-  X.m1 = mvrnorm(n = n1, mu, Sigma) # Generate the covariates.
-  X.m1.1 = cbind(rep(1, n1), X.m1) # Add a column of 1's to X.m1.
-  p.m1 = 1/(1+exp(-X.m1.1%*%beta.star)) # the vector of probabilities
-  Y.m1 = rbinom(n1, size=1, p.m1) # the Bernoulli responses
+  X.m1 = mvrnorm(n = n1, mu, Sigma) # Generate the covariates.  
+  X.m1.1 = cbind(rep(1, n1), X.m1) # Add a column of 1's to X.m1.  
+  p.m1 = 1/(1+exp(-X.m1.1%*%beta.star)) # the vector of probabilities  
+  Y.m1 = rbinom(n1, size=1, p.m1) # the Bernoulli responses  
   
   
-  #----Generate data set 2. m2 means model 2.---#
+  #----Generate data set 2. m2 means model 2.---#  
 
-  X.m2 = mvrnorm(n = n2, mu, Sigma)
-  X.m2.1 = cbind(rep(1, n2), X.m2)
-  p.m2 = 1/(1+exp(-X.m2.1%*%beta.star))
-  Y.m2 = rbinom(n2, size=1, p.m2)
+  X.m2 = mvrnorm(n = n2, mu, Sigma)  
+  X.m2.1 = cbind(rep(1, n2), X.m2)  
+  p.m2 = 1/(1+exp(-X.m2.1%*%beta.star))  
+  Y.m2 = rbinom(n2, size=1, p.m2)  
   
-  #----Generate data set 3. m3 means model 3.---#
+  #----Generate data set 3. m3 means model 3.---#  
 
-  X.m3 = mvrnorm(n = n3, mu, Sigma)
-  X.m3.1 = cbind(rep(1, n3), X.m3)
-  p.m3 = 1/(1+exp(-X.m3.1%*%beta.star))
-  Y.m3 = rbinom(n3, size=1, p.m3)
+  X.m3 = mvrnorm(n = n3, mu, Sigma)  
+  X.m3.1 = cbind(rep(1, n3), X.m3)  
+  p.m3 = 1/(1+exp(-X.m3.1%*%beta.star))  
+  Y.m3 = rbinom(n3, size=1, p.m3)  
   
-  #--#######################################################
-  #--### Create data sets in the format of data frame.######
-  #--#######################################################
-  data.m1 = data.frame(Y=Y.m1, X.m1)
-  data.m2 = data.frame(Y=Y.m2, X.m2)
-  data.m3 = data.frame(Y=Y.m3, X.m3)
-  
-  
+  #--#######################################################  
+  #--### Create data sets in the format of data frame.######  
+  #--#######################################################  
+  data.m1 = data.frame(Y=Y.m1, X.m1)  
+  data.m2 = data.frame(Y=Y.m2, X.m2)  
+  data.m3 = data.frame(Y=Y.m3, X.m3)  
   
   
-  #--####################################################################
-  #--### Fit logistic regression with reduced models to the data sets ###
-  #--####################################################################
+  
+  
+  #--####################################################################  
+  #--### Fit logistic regression with reduced models to the data sets ###  
+  #--####################################################################  
 
-  logit.m1 <- glm(Y ~ X1 + X2, data = data.m1, family = "binomial")
-  if(logit.m1$converged == FALSE)
-  {
-    print("glm for logit.m1 is not convergent.")
-    next
-  }
+  logit.m1 <- glm(Y ~ X1 + X2, data = data.m1, family = "binomial")  
+  if(logit.m1$converged == FALSE)  
+  {  
+    print("glm for logit.m1 is not convergent.")  
+    next  
+  }  
   
-  logit.m2 <- glm(Y ~ X2 + X3, data = data.m2, family = "binomial")
+  logit.m2 <- glm(Y ~ X2 + X3, data = data.m2, family = "binomial")  
 
-  if(logit.m2$converged == FALSE)
-  {
-    print("glm for logit.m2 is not convergent.")
-    next
-  }
+  if(logit.m2$converged == FALSE)  
+  {  
+    print("glm for logit.m2 is not convergent.")  
+    next  
+  }  
   
-  logit.m3 <- glm(Y ~ X1 + X3, data = data.m3, family = "binomial")
+  logit.m3 <- glm(Y ~ X1 + X3, data = data.m3, family = "binomial")  
   
-  if(logit.m3$converged == FALSE)
-  {
-    print("glm for logit.m3 is not convergent.")
-    next
- }
+  if(logit.m3$converged == FALSE)  
+  {  
+    print("glm for logit.m3 is not convergent.")  
+    next  
+ }  
   
   
   #--####################################################################
