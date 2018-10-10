@@ -692,6 +692,7 @@ square = function(x)
   sum(x^2)
 }
 
+
 #----Computing the average length of CI----#
 
 Average.length = apply((Upper.CI-Lower.CI), 2, mean)
