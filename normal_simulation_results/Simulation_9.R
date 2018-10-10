@@ -252,7 +252,7 @@ for(sim in 1:no.of.simulations)
   names(theta.m2)=c("(Intercept)","Height", "Weight")
   names(theta.m3)=c("(Intercept)","Age", "Weight")
   
-  ###now put in the GMeta example
+  ###now put in the MetaG example
   
   study1 = list(Coeff=theta.m1,Covariance=Sigma.m1,Sample_size=n1)
   study2 = list(Coeff=theta.m2,Covariance=Sigma.m2,Sample_size=n2)
@@ -263,7 +263,7 @@ for(sim in 1:no.of.simulations)
   
   reference = cbind(rep(1,n), X.rf)
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")
-  result.same = GMeta(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))
+  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))
   
   asym_var_simu[[sim]] = result.same$Est.var.cov
   if(sum(is.na(result.same$Est.coeff)) == 0 && is.null(result.same$Est.var.cov) != TRUE)
@@ -297,6 +297,6 @@ square = function(x)
 Average.length = apply((Upper.CI-Lower.CI), 2, mean)
 RMSE = sqrt(apply(t(t(na.omit(sim.matrix)[,1:4]) - as.numeric(beta.star)), 2, square)/dim(na.omit(sim.matrix))[1])
 result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)[1:4], beta.star, (apply(na.omit(sim.matrix), 2, mean)[1:4]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)[5:8]), sqrt(apply(na.omit(sim.matrix)[,1:4], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)
-colnames(result) = c("Coeff","True", "Bias", "ESE", "SE", "Coverage.rate", "AL", "RMSE")
+colnames(result) = c("Coeff","True", "Bias", "ESD", "SD", "Coverage.rate", "AL", "RMSE")
 
 write.csv(result, file = "Simulation_9.csv", row.names = F)
