@@ -24,7 +24,8 @@ source("sign.star.R")
 
 # Setting-I (Ideal setting)  
 library(MASS)  
-library(stats)  
+library(stats) 
+library(magic)
 #--#######################  
 #--### Basic setting######  
 #--#######################  
