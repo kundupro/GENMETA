@@ -297,7 +297,7 @@ K = 3
 
  if(sum(is.na(result.same$Est.coeff)) == 0 && is.null(result.same$Est.var.cov) != TRUE)  
   {  
-    sim.matrix[sim, ] = c(result.same$Est.coeff, diag(result.same$Est.var.cov))  
+    sim.matrix\[sim, ] = c(result.same$Est.coeff, diag(result.same$Est.var.cov))  
   }  
   
   print(sim)  
@@ -344,7 +344,7 @@ RMSE = sqrt(apply(t(t(na.omit(sim.matrix)\[,1:4\]) - as.numeric(beta.star)), 2, 
 
 result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)\[1:4\], beta.star, (apply(na.omit(sim.matrix), 2, mean)\[1:4\]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)\[5:8\]), sqrt(apply(na.omit(sim.matrix)\[,1:4\], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
 
-colnames(result) = c("Coeff","True", "Bias", "ESE", "SE", "Coverage.rate", "AL", "RMSE")  
+colnames(result) = c("Coeff","True", "Bias", "ESD", "SD", "Coverage.rate", "AL", "RMSE")  
 
 #-------Writing into a file-----#  
 write.csv(result, file = "Simulation_1.csv", row.names = F)  
@@ -715,7 +715,7 @@ RMSE = sqrt(apply(t(t(na.omit(sim.matrix)\[,1:4\]) - as.numeric(beta.star)), 2, 
 
 result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)\[1:4\], beta.star, (apply(na.omit(sim.matrix), 2, mean)\[1:4\]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)\[5:8\]), sqrt(apply(na.omit(sim.matrix)\[,1:4\], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
 
-colnames(result) = c("Coeff","True", "Bias", "ESE", "SE", "Coverage.rate", "AL", "RMSE")  
+colnames(result) = c("Coeff","True", "Bias", "ESD", "SD", "Coverage.rate", "AL", "RMSE")  
 
 #-------Writing into a file-----#
 
