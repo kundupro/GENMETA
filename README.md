@@ -472,7 +472,7 @@ for(sim in 1:no.of.simulations)
   
   #----Generate data set 3. m3 means model 3.---#  
 
-  X.m3 = mvrnorm(n = n3, mu.3, Sigma.3)  
+  X.m3 = mvrnorm(n = n3, mu.3, Sigma.2)  
   X.m3.1 = cbind(rep(1, n3), X.m3)  
   p.m3 = 1/(1+exp(-X.m3.1%\*%beta.star))  
   Y.m3 = rbinom(n3, size=1, p.m3)  
