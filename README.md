@@ -668,7 +668,7 @@ K = 3
 
  if(sum(is.na(result.same$Est.coeff)) == 0 && is.null(result.same$Est.var.cov) != TRUE)  
   {  
-    sim.matrix[sim, ] = c(result.same$Est.coeff, diag(result.same$Est.var.cov))  
+    sim.matrix\[sim, \] = c(result.same$Est.coeff, diag(result.same$Est.var.cov))  
   }  
   
   print(sim)  
@@ -680,22 +680,22 @@ elapsed.time = stop.time - start.time
 
 
 #-----Computing the 95% confidence-intervals---#  
-Lower.CI = na.omit(sim.matrix)[,1:4] - 1.96*sqrt(na.omit(sim.matrix)[,5:8])  
-Upper.CI = na.omit(sim.matrix)[,1:4] + 1.96*sqrt(na.omit(sim.matrix)[,5:8])  
+Lower.CI = na.omit(sim.matrix)\[,1:4\] - 1.96\*sqrt(na.omit(sim.matrix)\[,5:8\])  
+Upper.CI = na.omit(sim.matrix)\[,1:4\] + 1.96\*sqrt(na.omit(sim.matrix)\[,5:8\])  
 
 #------Computing the coverage rate---------#    
 
-Coverage.rate = matrix(0,dim(na.omit(sim.matrix))[1], 4)  
-for(k in 1:dim(na.omit(sim.matrix))[1])  
+Coverage.rate = matrix(0,dim(na.omit(sim.matrix))\[1\], 4)  
+for(k in 1:dim(na.omit(sim.matrix))\[1\])  
 {  
-  if(beta.star[1,1] >= Lower.CI[k,1] & beta.star[1,1] <= Upper.CI[k,1])  
-    Coverage.rate[k,1] = 1  
-  if(beta.star[2,1] >= Lower.CI[k,2] & beta.star[2,1] <= Upper.CI[k,2])  
-    Coverage.rate[k,2] = 1  
-  if(beta.star[3,1] >= Lower.CI[k,3] & beta.star[3,1] <= Upper.CI[k,3])  
-    Coverage.rate[k,3] = 1  
-  if(beta.star[4,1] >= Lower.CI[k,4] & beta.star[4,1] <= Upper.CI[k,4])  
-    Coverage.rate[k,4] = 1  
+  if(beta.star\[1,1\] >= Lower.CI\[k,1\] & beta.star\[1,1\] <= Upper.CI\[k,1\])  
+    Coverage.rate\[k,1\] = 1  
+  if(beta.star\[2,1\] >= Lower.CI\[k,2\] & beta.star\[2,1\] <= Upper.CI\[k,2\])  
+    Coverage.rate\[k,2\] = 1  
+  if(beta.star\[3,1\] >= Lower.CI\[k,3\] & beta.star\[3,1\] <= Upper.CI\[k,3\])  
+    Coverage.rate\[k,3\] = 1  
+  if(beta.star\[4,1\] >= Lower.CI\[k,4\] & beta.star\[4,1\] <= Upper.CI\[k,4\])  
+    Coverage.rate\[k,4\] = 1  
 }  
 
 square = function(x)  
@@ -709,11 +709,11 @@ Average.length = apply((Upper.CI-Lower.CI), 2, mean)
 
 #------Computing root mean square error -----#  
 
-RMSE = sqrt(apply(t(t(na.omit(sim.matrix)[,1:4]) - as.numeric(beta.star)), 2, square)/dim(na.omit(sim.matrix))[1])  
+RMSE = sqrt(apply(t(t(na.omit(sim.matrix)\[,1:4\]) - as.numeric(beta.star)), 2, square)/dim(na.omit(sim.matrix))\[1\])  
 
 #-----Combining the results------#  
 
-result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)[1:4], beta.star, (apply(na.omit(sim.matrix), 2, mean)[1:4]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)[5:8]), sqrt(apply(na.omit(sim.matrix)[,1:4], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
+result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)\[1:4\], beta.star, (apply(na.omit(sim.matrix), 2, mean)\[1:4\]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)\[5:8\]), sqrt(apply(na.omit(sim.matrix)\[,1:4\], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
 
 colnames(result) = c("Coeff","True", "Bias", "ESE", "SE", "Coverage.rate", "AL", "RMSE")  
 
