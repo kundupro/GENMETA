@@ -196,14 +196,14 @@ K = 3
   
   for (i in 1:n1)  
   {  
-    a = as.vector(exp(-X.m1.used\[i, , drop=F\]%\*%theta.m1))  
+    a = as.vector(exp(-X.m1.used\[i, , drop=F\]%*%theta.m1))  
     T.1 = T.1 + (a/(1+a)^2) * (t(X.m1.used\[i, , drop=F\]) %*% X.m1.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n1)  
   {  
     a = as.vector(1/( 1 + exp(-X.m1.used\[i, , drop=F\]%*%theta.m1)))  
-    T.2 = T.2 + (Y.m1[i]-a)^2 * (t(X.m1.used[i, , drop=F])%*%X.m1.used[i, , drop=F])  
+    T.2 = T.2 + (Y.m1\[i\]-a)^2 * (t(X.m1.used\[i, , drop=F\])%*%X.m1.used\[i, , drop=F\])  
   }  
   
   Sigma.m1 = solve(T.1)%*%T.2%*%solve(T.1)   
@@ -217,14 +217,14 @@ K = 3
   
   for (i in 1:n2)  
   {  
-    a = as.vector(exp(-X.m2.used[i, , drop=F]%*%theta.m2))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m2.used[i, , drop=F])%*%X.m2.used[i, , drop=F])  
+    a = as.vector(exp(-X.m2.used\[i, , drop=F\]%*%theta.m2))  
+    T.1 = T.1 + (a/(1+a)^2) * (t(X.m2.used\[i, , drop=F\])%*%X.m2.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n2)  
   {  
-    a = as.vector(1/( 1 + exp(-X.m2.used[i, , drop=F]%*%theta.m2)))  
-    T.2 = T.2 + (Y.m2[i]-a)^2 * (t(X.m2.used[i, , drop=F])%*%X.m2.used[i, , drop=F])  
+    a = as.vector(1/( 1 + exp(-X.m2.used\[i, , drop=F\]%*%theta.m2)))  
+    T.2 = T.2 + (Y.m2\[i\]-a)^2 * (t(X.m2.used\[i, , drop=F\])%*%X.m2.used\[i, , drop=F\])  
   }  
   
   Sigma.m2 = solve(T.1)%*%T.2%*%solve(T.1)  
@@ -242,14 +242,14 @@ K = 3
   
   for (i in 1:n3)  
   {  
-    a = as.vector(exp(-X.m3.used[i, , drop=F]%*%theta.m3))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m3.used[i, , drop=F])%*%X.m3.used[i, , drop=F])  
+    a = as.vector(exp(-X.m3.used\[i, , drop=F\]%*%theta.m3))  
+    T.1 = T.1 + (a/(1+a)^2) * (t(X.m3.used\[i, , drop=F\])%*%X.m3.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n3)  
   {  
-    a = as.vector(1/( 1 + exp(-X.m3.used[i, , drop=F]%*%theta.m3)))  
-    T.2 = T.2 + (Y.m3[i]-a)^2 * (t(X.m3.used[i, , drop=F])%*%X.m3.used[i, , drop=F])  
+    a = as.vector(1/( 1 + exp(-X.m3.used\[i, , drop=F\]%*%theta.m3)))  
+    T.2 = T.2 + (Y.m3\[i\]-a)^2 * (t(X.m3.used\[i, , drop=F\])%*%X.m3.used\[i, , drop=F\])  
   }  
   
   Sigma.m3 = solve(T.1)%*%T.2%*%solve(T.1)  
@@ -309,22 +309,22 @@ elapsed.time = stop.time - start.time
 
 
 #-----Computing the 95% confidence-intervals---#  
-Lower.CI = na.omit(sim.matrix)[,1:4] - 1.96*sqrt(na.omit(sim.matrix)[,5:8])  
-Upper.CI = na.omit(sim.matrix)[,1:4] + 1.96*sqrt(na.omit(sim.matrix)[,5:8])  
+Lower.CI = na.omit(sim.matrix)\[,1:4\] - 1.96*sqrt(na.omit(sim.matrix)\[,5:8\])  
+Upper.CI = na.omit(sim.matrix)\[,1:4\] + 1.96*sqrt(na.omit(sim.matrix)\[,5:8\])  
 
 #------Computing the coverage rate---------#    
 
-Coverage.rate = matrix(0,dim(na.omit(sim.matrix))[1], 4)  
-for(k in 1:dim(na.omit(sim.matrix))[1])  
+Coverage.rate = matrix(0,dim(na.omit(sim.matrix))\[1\], 4)  
+for(k in 1:dim(na.omit(sim.matrix))\[1\])  
 {  
-  if(beta.star[1,1] >= Lower.CI[k,1] & beta.star[1,1] <= Upper.CI[k,1])  
-    Coverage.rate[k,1] = 1  
-  if(beta.star[2,1] >= Lower.CI[k,2] & beta.star[2,1] <= Upper.CI[k,2])  
-    Coverage.rate[k,2] = 1  
-  if(beta.star[3,1] >= Lower.CI[k,3] & beta.star[3,1] <= Upper.CI[k,3])  
-    Coverage.rate[k,3] = 1  
-  if(beta.star[4,1] >= Lower.CI[k,4] & beta.star[4,1] <= Upper.CI[k,4])  
-    Coverage.rate[k,4] = 1  
+  if(beta.star\[1,1\] >= Lower.CI\[k,1\] & beta.star\[1,1\] <= Upper.CI\[k,1\])  
+    Coverage.rate\[k,1\] = 1  
+  if(beta.star\[2,1\] >= Lower.CI\[k,2\] & beta.star\[2,1\] <= Upper.CI\[k,2\])  
+    Coverage.rate\[k,2\] = 1  
+  if(beta.star\[3,1\] >= Lower.CI\[k,3\] & beta.star\[3,1\] <= Upper.CI\[k,3\])  
+    Coverage.rate\[k,3\] = 1  
+  if(beta.star\[4,1\] >= Lower.CI\[k,4\] & beta.star\[4,1\] <= Upper.CI\[k,4\])  
+    Coverage.rate\[k,4\] = 1  
 }  
 
 square = function(x)  
@@ -338,11 +338,11 @@ Average.length = apply((Upper.CI-Lower.CI), 2, mean)
 
 #------Computing root mean square error -----#  
 
-RMSE = sqrt(apply(t(t(na.omit(sim.matrix)[,1:4]) - as.numeric(beta.star)), 2, square)/dim(na.omit(sim.matrix))[1])  
+RMSE = sqrt(apply(t(t(na.omit(sim.matrix)\[,1:4\]) - as.numeric(beta.star)), 2, square)/dim(na.omit(sim.matrix))\[1\])  
 
 #-----Combining the results------#  
 
-result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)[1:4], beta.star, (apply(na.omit(sim.matrix), 2, mean)[1:4]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)[5:8]), sqrt(apply(na.omit(sim.matrix)[,1:4], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
+result = data.frame(cbind(apply(na.omit(sim.matrix), 2, mean)\[1:4\], beta.star, (apply(na.omit(sim.matrix), 2, mean)\[1:4\]- beta.star), sqrt(apply(na.omit(sim.matrix), 2, mean)\[5:8\]), sqrt(apply(na.omit(sim.matrix)\[,1:4\], 2, var))), apply(Coverage.rate,2, mean), Average.length, RMSE)  
 
 colnames(result) = c("Coeff","True", "Bias", "ESE", "SE", "Coverage.rate", "AL", "RMSE")  
 
