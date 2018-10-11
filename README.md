@@ -459,7 +459,7 @@ for(sim in 1:no.of.simulations)
 
   X.m1 = mvrnorm(n = n1, mu.1, Sigma.2) # Generate the covariates.  
   X.m1.1 = cbind(rep(1, n1), X.m1) # Add a column of 1's to X.m1.  
-  p.m1 = 1/(1+exp(-X.m1.1%*%beta.star)) # the vector of probabilities  
+  p.m1 = 1/(1+exp(-X.m1.1%\*%beta.star)) # the vector of probabilities  
   Y.m1 = rbinom(n1, size=1, p.m1) # the Bernoulli responses  
  
   
@@ -467,14 +467,14 @@ for(sim in 1:no.of.simulations)
 
   X.m2 = mvrnorm(n = n2, mu.2, Sigma.2)  
   X.m2.1 = cbind(rep(1, n2), X.m2)  
-  p.m2 = 1/(1+exp(-X.m2.1%*%beta.star))  
+  p.m2 = 1/(1+exp(-X.m2.1%\*%beta.star))  
   Y.m2 = rbinom(n2, size=1, p.m2)  
   
   #----Generate data set 3. m3 means model 3.---#  
 
   X.m3 = mvrnorm(n = n3, mu.3, Sigma.3)  
   X.m3.1 = cbind(rep(1, n3), X.m3)  
-  p.m3 = 1/(1+exp(-X.m3.1%*%beta.star))  
+  p.m3 = 1/(1+exp(-X.m3.1%\*%beta.star))  
   Y.m3 = rbinom(n3, size=1, p.m3)  
   
   #--#######################################################  
@@ -553,9 +553,9 @@ K = 3
   
 #--- X.m1.used denotes the design matrix in model 1----#  
   
-  X.m1.used = cbind(rep(1, n1), X.m1[, A1, drop=F])  
-  X.m2.used = cbind(rep(1, n2), X.m2[, A2, drop=F])  
-  X.m3.used = cbind(rep(1, n3), X.m3[, A3, drop=F])  
+  X.m1.used = cbind(rep(1, n1), X.m1\[, A1, drop=F\])  
+  X.m2.used = cbind(rep(1, n2), X.m2\[, A2, drop=F\])  
+  X.m3.used = cbind(rep(1, n3), X.m3\[, A3, drop=F\])  
   
   
   
@@ -567,17 +567,17 @@ K = 3
   
   for (i in 1:n1)  
   {  
-    a = as.vector(exp(-X.m1.used[i, , drop=F]%*%theta.m1))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m1.used[i, , drop=F])%*%X.m1.used[i, , drop=F])  
+    a = as.vector(exp(-X.m1.used\[i, , drop=F\]%\*%theta.m1))  
+    T.1 = T.1 + (a/(1+a)^2) \* (t(X.m1.used\[i, , drop=F\])%\*%X.m1.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n1)  
   {  
-    a = as.vector(1/( 1 + exp(-X.m1.used[i, , drop=F]%*%theta.m1)))  
-    T.2 = T.2 + (Y.m1[i]-a)^2 * (t(X.m1.used[i, , drop=F])%*%X.m1.used[i, , drop=F])  
+    a = as.vector(1/( 1 + exp(-X.m1.used\[i, , drop=F\]%\*%theta.m1)))  
+    T.2 = T.2 + (Y.m1\[i\]-a)^2 \* (t(X.m1.used\[i, , drop=F\])%\*%X.m1.used\[i, , drop=F\])  
   }  
   
-  Sigma.m1 = solve(T.1)%*%T.2%*%solve(T.1)   
+  Sigma.m1 = solve(T.1)%\*%T.2%\*%solve(T.1)   
   
   
 #----- Computing robust estimate of Sigma.m2 -------#  
@@ -588,17 +588,17 @@ K = 3
   
   for (i in 1:n2)  
   {  
-    a = as.vector(exp(-X.m2.used[i, , drop=F]%*%theta.m2))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m2.used[i, , drop=F])%*%X.m2.used[i, , drop=F])  
+    a = as.vector(exp(-X.m2.used\[i, , drop=F\]%\*%theta.m2))  
+    T.1 = T.1 + (a/(1+a)^2) \* (t(X.m2.used\[i, , drop=F\])%\*%X.m2.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n2)  
   {  
-    a = as.vector(1/( 1 + exp(-X.m2.used[i, , drop=F]%*%theta.m2)))  
-    T.2 = T.2 + (Y.m2[i]-a)^2 * (t(X.m2.used[i, , drop=F])%*%X.m2.used[i, , drop=F])  
+    a = as.vector(1/( 1 + exp(-X.m2.used\[i, , drop=F\]%\*%theta.m2)))  
+    T.2 = T.2 + (Y.m2\[i\]-a)^2 \* (t(X.m2.used\[i, , drop=F\])%*%X.m2.used\[i, , drop=F\])  
   }  
   
-  Sigma.m2 = solve(T.1)%*%T.2%*%solve(T.1)  
+  Sigma.m2 = solve(T.1)%\*%T.2%\*%solve(T.1)  
   
   
  
@@ -613,17 +613,17 @@ K = 3
   
   for (i in 1:n3)  
   {  
-    a = as.vector(exp(-X.m3.used[i, , drop=F]%*%theta.m3))  
-    T.1 = T.1 + (a/(1+a)^2) * (t(X.m3.used[i, , drop=F])%*%X.m3.used[i, , drop=F])  
+    a = as.vector(exp(-X.m3.used\[i, , drop=F\]%\*%theta.m3))  
+    T.1 = T.1 + (a/(1+a)^2) \* (t(X.m3.used\[i, , drop=F\])%\*%X.m3.used\[i, , drop=F\])  
   }  
   
   for (i in 1:n3)  
   {  
-    a = as.vector(1/( 1 + exp(-X.m3.used[i, , drop=F]%*%theta.m3)))  
-    T.2 = T.2 + (Y.m3[i]-a)^2 * (t(X.m3.used[i, , drop=F])%*%X.m3.used[i, , drop=F])  
+    a = as.vector(1/( 1 + exp(-X.m3.used\[i, , drop=F\]%\*%theta.m3)))  
+    T.2 = T.2 + (Y.m3\[i\]-a)^2 \* (t(X.m3.used\[i, , drop=F\])%\*%X.m3.used\[i, , drop=F\])  
   }  
   
-  Sigma.m3 = solve(T.1)%*%T.2%*%solve(T.1)  
+  Sigma.m3 = solve(T.1)%\*%T.2%\*%solve(T.1)  
   
   
   
