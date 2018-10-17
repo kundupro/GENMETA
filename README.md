@@ -1,22 +1,22 @@
-# MetaG
-This file provides guidelines for implementing generalized meta-analysis(GMeta)  
+# GENMETA
+This file provides guidelines for implementing generalized meta-analysis(GENMETA)  
 
 
 STEP:1  
 Download the zip file and extract the files into a folder.  
 Make that folder as the current working directory.  
 
-For example, if the path to the folder containing the files is “~/Documents/MetaG”  
-then to make the current directory as GMeta, type in the following in the R Console  
+For example, if the path to the folder containing the files is “~/Documents/GENMETA”  
+then to make the current directory as GENMETA, type in the following in the R Console  
 
-setwd("~/Documents/MetaG")  
+setwd("~/Documents/GENMETA")  
 
 STEP:2  
 
-##---- sourcing the files in the MetaG------##  
-source("MetaG.R")  
+##---- sourcing the files in the GENMETA------##  
+source("GENMETA.R")  
 source("myoptim.R")  
-source("MetaG.summary.R")  
+source("GENMETA.summary.R")  
 source("sign.star.R")  
 
 #--------- The following code is for the simulation results in Table 2----------------#  
@@ -262,7 +262,7 @@ K = 3
   names(theta.m2)=c("(Intercept)","Height", "Weight")  
   names(theta.m3)=c("(Intercept)","Age", "Weight")  
   
-  #---- now put in the MetaG example ----#  
+  #---- now put in the GENMETA example ----#  
 
  #--### The results shown in Table 2 is obtained by considering #####  
  #--#### study-specific variance-covariance matrices. This is shown ##  
@@ -279,19 +279,19 @@ K = 3
 #--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##  
 #--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##  
 
- #---- Creating the study list for MetaG input ---#  
+ #---- Creating the study list for GENMETA input ---#  
   
  studies = list(study1,study2,study3)  
   model = "logistic"  
   
-  #------ Creating the reference data for MetaG input -----#  
+  #------ Creating the reference data for GENMETA input -----#  
 
   reference = cbind(rep(1,n), X.rf)  
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")  
 
-#-------Calling the MetaG function-------#  
+#-------Calling the GENMETA function-------#  
 
-  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
+  result.same = GENMETA(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
   
   
 #------Checking the conditions where the optim did not converge--#   
@@ -633,7 +633,7 @@ K = 3
   names(theta.m2)=c("(Intercept)","Height", "Weight")  
   names(theta.m3)=c("(Intercept)","Age", "Weight")  
   
-  #---- now put in the MetaG example ----#  
+  #---- now put in the GENMETA example ----#  
 
  #--### The results shown in Table 2 is obtained by considering #####  
  #--#### study-specific variance-covariance matrices. This is shown ##  
@@ -650,19 +650,19 @@ K = 3
 #--##### study2 = list(Coeff=theta.m2,Covariance=NULL,Sample_size=n2)##  
 #--##### study3 = list(Coeff=theta.m3,Covariance=NULL,Sample_size=n3)##  
 
- #---- Creating the study list for MetaG input ---#  
+ #---- Creating the study list for GENMETA input ---#  
   
  studies = list(study1,study2,study3)  
   model = "logistic"  
   
-  #------ Creating the reference data for MetaG input -----#  
+  #------ Creating the reference data for GENMETA input -----#  
 
   reference = cbind(rep(1,n), X.rf)  
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")  
 
-#-------Calling the MetaG function-------#  
+#-------Calling the GENMETA function-------#  
 
-  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
+  result.same = GENMETA(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))  
   
   
 #------Checking the conditions where the optim did not converge--#   
