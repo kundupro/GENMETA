@@ -266,7 +266,7 @@ for(sim in 1:no.of.simulations)
   names(theta.m2)=c("(Intercept)","Height", "Weight")
   names(theta.m3)=c("(Intercept)","Age", "Weight")
   
-  ###now put in the MetaG example
+  ###now put in the GENMETA example
   
   study1 = list(Coeff=theta.m1,Covariance=Sigma.m1,Sample_size=n1)
   study2 = list(Coeff=theta.m2,Covariance=Sigma.m2,Sample_size=n2)
@@ -277,7 +277,7 @@ for(sim in 1:no.of.simulations)
   
   reference = cbind(rep(1,n), X.rf)
   colnames(reference) = c("(Intercept)","Age","Height", "Weight")
-  result.same = MetaG(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))
+  result.same = GENMETA(studies, reference, model, initial_val = c(-1.2, log(1.3), log(1.3), log(1.3)))
   
   asym_var_simu[[sim]] = result.same$Est.var.cov
   if(sum(is.na(result.same$Est.coeff)) == 0 && is.null(result.same$Est.var.cov) != TRUE)
