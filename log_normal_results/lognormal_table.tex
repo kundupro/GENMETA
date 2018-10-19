@@ -1,0 +1,172 @@
+%\documentclass[manuscript]{biometrika}
+\documentclass[lineno]{biometrika}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+
+
+%\usepackage{geometry}
+\usepackage{pdflscape}
+%\usepackage{adjustbox}
+
+
+\usepackage[margin=1mm]{caption}
+
+%% Please use the following statements for
+%% managing the text and math fonts for your papers:
+\usepackage{times}
+%\usepackage[cmbold]{mathtime}
+\usepackage{bm}
+\usepackage{natbib}
+
+\usepackage[plain,noend]{algorithm2e}
+
+\makeatletter
+\renewcommand{\algocf@captiontext}[2]{#1\algocf@typo. \AlCapFnt{}#2} % text of caption
+\renewcommand{\AlTitleFnt}[1]{#1\unskip}% default definition
+\def\@algocf@capt@plain{top}
+\renewcommand{\algocf@makecaption}[2]{%
+  \addtolength{\hsize}{\algomargin}%
+  \sbox\@tempboxa{\algocf@captiontext{#1}{#2}}%
+  \ifdim\wd\@tempboxa >\hsize%     % if caption is longer than a line
+    \hskip .5\algomargin%
+    \parbox[t]{\hsize}{\algocf@captiontext{#1}{#2}}% then caption is not centered
+  \else%
+    \global\@minipagefalse%
+    \hbox to\hsize{\box\@tempboxa}% else caption is centered
+  \fi%
+  \addtolength{\hsize}{-\algomargin}%
+}
+\makeatother
+
+%%% User-defined macros should be placed here, but keep them to a minimum.
+\def\Bka{{\it Biometrika}}
+\def\AIC{\textsc{aic}}
+\def\T{{ \mathrm{\scriptscriptstyle T} }}
+\def\v{{\varepsilon}}
+
+\addtolength\topmargin{35pt}
+\DeclareMathOperator{\Thetabb}{\mathcal{C}}
+
+
+%\newtheorem{theorem}{Theorem}
+%\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\vec}[1]{#1}
+\newcommand{\Rho}{\mathrm{P}}
+\newcommand{\argmin}{\text{argmin}}
+\newcommand{\diag}{\text{diag}}
+\newcommand{\E}{\mathbb{E}}
+%\newcommand{\bd}[1]{\boldsymbol{#1}}
+\newcommand{\bd}[1]{#1}
+\newcommand{\Pn}{\mathbb{P}_{n}}
+
+\begin{document}
+
+%\jname{Biometrika}
+%% The year, volume, and number are determined on publication
+%\jyear{2017}
+%\jvol{xx}
+%\jnum{x}
+%% The \doi{...} and \accessdate commands are used by the production team
+%\doi{10.1093/biomet/asm023}
+%\accessdate{Advance Access publication on 31 July 2016}
+
+%% These dates are usually set by the production team
+%\received{x xx 2017}
+%\revised{x xx 2017}
+
+%% The left and right page headers are defined here:
+%\markboth{R. Tang, P. Kundu \and N. Chatterjee}{Generalized Meta-Analysis}
+
+%% Here are the title, author names and addresses
+%\title{Generalized Meta-Analysis for Multivariate Regression Models
+%Across Studies with Disparate Covariate Information}
+
+%\author{Runlong Tang, Prosenjit Kundu \and Nilanjan Chatterjee}
+%\affil{Bloomberg School of Public Health, Johns Hopkins University, Baltimore, MD, 21205, USA\\
+%School of Medicine, Johns Hopkins University, Baltimore,  MD, 21205, USA
+%\email{rtang15@jhu.edu} \email{pkundu3@jhu.edu} \email{nchatte2@jhu.edu}}
+
+%\author{Runlong Tang}
+%\affil{Department of Biostatistics, Bloomberg School of Public Health, Johns Hopkins University, Baltimore, Maryland, 21205, U.S.A.
+%\email{rtang15@jhu.edu}}
+
+%\author{Prosenjit Kundu}
+%\affil{Department of Biostatistics, Bloomberg School of Public Health, Johns Hopkins University, Baltimore, Maryland, 21205, U.S.A.
+%\email{pkundu@jhu.edu}}
+
+%\author{\and Nilanjan Chatterjee}
+%\affil{Department of Biostatistics, Bloomberg School of Public Health, Johns Hopkins University, Baltimore, Maryland, 21205, U.S.A.;
+%Department of Oncology, School of Medicine, Johns Hopkins University, Baltimore,  MD, 21205, U.S.A.
+%\email{nchatte2@jhu.edu}}
+
+%\maketitle
+
+\begin{table}
+
+\tbl{Robustness of GMeta Estimation}{%
+\begin{tabular}{ccccccrcccc}
+  %\hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  Setting  & Study-I & Study-II & Study-III & Reference & $\beta_{i}^{*}$ & Bias & SD (ESD) & RMSE & CR & AL \\ %\hline
+\vspace{-1mm} &&&&&&&&&& \\
+  & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$& $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .010 & .076 (.075) & .077 & .941 & .288 \\
+I  &$\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$ & .011 & .064 (.061) & .065 & .947 & .237 \\
+ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ & .006 & .066 (.064) & .066 & .954 & .246 \\  %\cline{2-8}
+\vspace{-1mm} & & &&&&&&&& \\
+  & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_h}$ & $\boldsymbol{\mu_m}$ &  $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ & .010 & .079 (.072) & .079 & .930 & .272 \\
+  & $\boldsymbol{\sigma_b^2}$  & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\beta_{2}^{*}$ &  .002 & .056 (.054) & .056 & .948 & .211 \\
+  & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ & -.002 & .062 (.058) & .062 & .945 & .222 \\   %\cline{2-8}
+\vspace{-3mm} & &  &&&&&&&& \\
+    & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .032 & .088 (.088) & .094 & .930 & .339 \\
+ II   & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_h^2}$ & $\boldsymbol{\sigma_l^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$ &  -.002 & .062 (.057) & .062 & .941 & .221 \\
+  & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ &  -.005 & .074 (.074) & .074 & .967 & .286 \\   %\hline
+\vspace{-3mm} &&&&&&&&&&\\
+   & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_h}$ & $\boldsymbol{\mu_m}$ &  $\boldsymbol{\mu_b}$  & $\beta_{1}^{*}$ & .021 & .079 (.077) & .081 & .929 & .294 \\
+  & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_h^2}$ & $\boldsymbol{\sigma_l^2}$ & $\boldsymbol{\sigma_b^2}$ & $\beta_{2}^{*}$&  .0005 & .055 (.055) & .055 & .956 & .213 \\
+   & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ &  -.008 & .065 (.064) & .065 & .954 & .246 \\   %\cline{2-8}
+\vspace{-1mm} & & &&&&&&&& \\
+  & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ & -.062 & .107 (.118) & .124 & .934 & .382 \\
+ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$  & $\beta_{2}^{*}$&   .021 & .070 (.065) & .073 & .930 & .250 \\
+  & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_h}$ & $\beta_{3}^{*}$ &  .030 & .087 (.096) & .092 & .956 & .322 \\   %\cline{2-8}
+\vspace{-3mm} & & &&&&&&&& \\
+  &  $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .039 & .072 (.069) & .081 & .891 & .264 \\
+ &  $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$&  .023 & .065 (.062) & .069 & .932 & .240 \\
+  & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_l}$ & $\beta_{3}^{*}$ &  .018 & .061 (.058) & .064 & .930 & .224 \\   %\hline
+  \vspace{-3mm} & & &&&&&&&& \\
+   &  $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .053 & .079 (.075) & .095 & .866 & .290 \\
+ III &  $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$&  .019 & .065 (.063) & .067 & .942 & .242 \\
+  & $\boldsymbol{\rho_l}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_h}$ & $\boldsymbol{\rho_l}$ & $\beta_{3}^{*}$ &  .012 & .068 (.064) & .069 & .935 & .249 \\   %\hline
+  \vspace{-3mm}  & & &&&&&&&& \\
+   &  $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .032 & .089 (.084) & .095 & .912 & .322  \\
+   &  $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$&  .010 & .062 (.062) & .063 & .946 & .240 \\
+  & $\boldsymbol{\rho_l}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_h}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ &  -.009 & .073 (.071) & .073 & .942 & .273 \\   %\hline
+  \vspace{-3mm}  & & &&&&&&&& \\
+   &  $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  -.025 & .113 (.108) & .116  & .954 & .407 \\
+  &  $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$&  .017 & .065 (.064) & .067 & .951 & .248 \\
+& $\boldsymbol{\rho_l}$ & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_h}$ & $\boldsymbol{\rho_h}$ & $\beta_{3}^{*}$ &  -.002 & .091 (.091) & .091 & .965 & .347 \\   %\hline
+  \vspace{-1mm}  & & &&&&&&&& \\
+ &  & & $\boldsymbol{\mu_b}$ & $\boldsymbol{\mu_b}$ & $\beta_{1}^{*}$ &  .007 & .096 (.104) & .096  & .968 & .365 \\
+ IV &  $X_1>-0.5,X_2<0.5$ & $X_2 > 0$ & $\boldsymbol{\sigma_b^2}$ & $\boldsymbol{\sigma_b^2}$ &  $\beta_{2}^{*}$&  .242 & .353 (.117) & .428 & .572 & .401 \\
+  &     &  & $\boldsymbol{\rho_b}$ & $\boldsymbol{\rho_b}$ & $\beta_{3}^{*}$ &  -.015 & .067 (.081) & .068 & .971 & .283 \\   %\hline
+\end{tabular}}
+\label{table:robustness}
+\begin{tabnote}
+Biases,
+standard deviation (SD),
+estimated standard deviation (ESD),
+square roots of mean square errors (RMSE),
+coverage rates (CR),
+and average lengths (AL)
+of 95\% confidence intervals of the GMeta estimates using the study covariance estimators in the setting of logistic regression. In setting (I), data are simulated in ideal setting where the covariate distribution is a log-normal distribution with the natural logarithm of the covariates being characterized by mean, sd and correlation of normal variates and are assumed to same across all populations. In setting (II)-(IV), the assumption is violated by creating variations in mean/sd, correlations of the underlying normal distribution and selection criterion across the studies and reference sample. The vector of log-transformed covariate means, variances and correlations are denoted by denoted by $\boldsymbol{\mu_*  = (\mu_1,\mu_2,\mu_3)}$, $\boldsymbol{\sigma^2_*  = (\sigma_1^2,\sigma_2^2, \sigma_3^2)}$ and $\boldsymbol{\rho_*  = (\rho_{12},\rho_{23},\rho_{13})}$ for $\boldsymbol{* \in \{b,l,m,h\}}$, where $\boldsymbol{\mu_b = (0,0,0)}$, $\boldsymbol{\mu_m = (0.5,0.5,0.5)}$, $\boldsymbol{\mu_h = (1,1,1)}$; $\boldsymbol{\sigma_b^2 = (1,1,1)}$, $\boldsymbol{\sigma_l^2 = (0.5,0.5,0.5)}$, $\boldsymbol{\sigma_h^2 = (2,2,2)}$ and $\boldsymbol{\rho_b = (0.3,0.6,0.1)}$, $\boldsymbol{\rho_h = (0.4,0.8,0.2)}$, $\boldsymbol{\rho_l = (0.2,0.4,0)}$. Estimated standard deviation are obtained by the asymptotic formula (\ref{equ:covariance matrix}) and used to construct 95\% confidence interval.
+\end{tabnote}
+\end{table}
+% Notes:
+% from Meta.GMM.Logistic.Main.33.Simu.01(.Para.01-05).)
+\end{document}
+
+
+
+
