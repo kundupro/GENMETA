@@ -1,9 +1,11 @@
 # GENMETA
 Generalized Meta-Analysis(GENMETA) is an approach for combining information on multivariate regression parameters across multiple different studies which have different, but, possibly overlapping information on subsets of covariates. GENMETA implements the generalized meta-analysis using IRWLS algorithm.  
-This file provides guidelines for implementing generalized meta-analysis(GENMETA)  
+This file provides guidelines for implementing generalized meta-analysis(GENMETA).  
 
+NOTE: If the user wishes to directly install the package in Github from R console, please go to the link https://github.com/28pro92/packages-GENMETA and see the README for further instructions.   
+If the user wishes to directly download the source files from Github, please read the following instructions:  
 
-STEP:1  
+# STEP1: Downloading the files  
 Download the zip file and extract the files into a folder.  
 Make that folder as the current working directory.  
 
@@ -12,7 +14,7 @@ then to make the current directory as GENMETA, type in the following in the R Co
 
 setwd("~/Documents/GENMETA")  
 
-STEP:2  
+# STEP2: Sourcing the files  
 
 ##---- sourcing the files in the GENMETA------##  
 source("GENMETA.R")  
@@ -20,7 +22,9 @@ source("myoptim.R")
 source("GENMETA.summary.R")  
 source("sign.star.R")  
 
-#--------- The following code is for the simulation results in Table 2----------------#  
+# Example describing how to create input arguments for GENMETA along with some simulation codes:  
+
+#--------- The following code is for the simulation results in Table 3----------------#  
 
 
 # Setting-I (Ideal setting)  
