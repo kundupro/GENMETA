@@ -70,7 +70,7 @@ n = 50
 no.of.simulations = 1000  
 
 #----- Defining a matrix to store the results for each simulation----#  
-sim.matrix = matrix(NA, 1000, 8)  
+sim.matrix = matrix(NA, no.of.simulations, 8)  
 
 start.time = Sys.time()  
 
@@ -315,8 +315,8 @@ elapsed.time = stop.time - start.time
 
 
 #-----Computing the 95% confidence-intervals---#  
-Lower.CI = na.omit(sim.matrix)\[,1:4\] - 1.96*sqrt(na.omit(sim.matrix)\[,5:8\])  
-Upper.CI = na.omit(sim.matrix)\[,1:4\] + 1.96*sqrt(na.omit(sim.matrix)\[,5:8\])  
+Lower.CI = na.omit(sim.matrix)\[,1:4\] - 1.96\*sqrt(na.omit(sim.matrix)\[,5:8\])  
+Upper.CI = na.omit(sim.matrix)\[,1:4\] + 1.96\*sqrt(na.omit(sim.matrix)\[,5:8\])  
 
 #------Computing the coverage rate---------#    
 
@@ -441,7 +441,7 @@ n = 50
 no.of.simulations = 1000  
 
 #----- Defining a matrix to store the results for each simulation----#  
-sim.matrix = matrix(NA, 1000, 8)  
+sim.matrix = matrix(NA, no.of.simulations, 8)  
 
 start.time = Sys.time()  
 
